@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <script src="/static/vercel_api.js"></script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Одиночная идентификация</title>
+    <link rel="stylesheet" href="/static/styles.css" />
+  </head>
+  <body class="solo-page">
+    <p class="vercel-banner" role="note">Интерфейсный прототип на Vercel. Модель DINOv2 и Docker здесь не запускаются: вес 1,2 ГБ не помещается в serverless. Галерея хранится только в этом браузере, сходство демонстрационное.</p>
+    <div class="workbench">
+      <button class="back-link" id="backHomeBtn" type="button">← Назад</button>
+      <div class="page-header">
+        <span class="flow-number">Шаг 2 · Быстрый поиск</span>
+        <h1>Одно изображение · ручной BBox</h1>
+        <p>Загрузите исходный кадр и выделите автомобиль прямоугольником. Координаты будут рассчитаны автоматически.</p>
+      </div>
+
+      <div class="upload-box" id="uploadBox">
+        <label class="primary-btn small" for="soloImageInput">Загрузить изображение</label>
+        <input id="soloImageInput" class="file-input" type="file" accept=".jpg,.jpeg,.png,image/jpeg,image/png" />
+      </div>
+
+      <div class="stage hidden" id="stage">
+        <div class="stage-topbar">
+          <div class="instruction" id="instructionText">Нажмите и протяните рамку вокруг автомобиля</div>
+          <div class="tool-row">
+            <button class="secondary-btn" id="clearBoxBtn" type="button">Сбросить рамку</button>
+          </div>
+        </div>
+
+        <div class="image-frame">
+          <svg id="drawingCanvas" class="drawing-svg" viewBox="0 0 900 620" preserveAspectRatio="xMidYMid meet"></svg>
+        </div>
+        <p id="bboxReadout" class="bbox-readout" aria-live="polite">Протяните прямоугольник от одного угла автомобиля до противоположного.</p>
+
+        <div class="error-message" id="errorMessage">Некорректное выделение границы. Попробуйте еще раз, пожалуйста</div>
+
+        <div class="common-gallery-line"><span id="soloGalleryStatus" aria-live="polite">Проверяем общую галерею…</span><a href="/gallery">Пополнить галерею →</a></div>
+
+        <div class="action-bar">
+          <button class="action-btn" id="analyzeBtn" type="button" disabled>Найти совпадения</button>
+          <button class="ghost-btn" id="replaceImageBtn" type="button">Загрузить другое</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="/static/export.js?v=20260927-1"></script>
+    <script src="/static/candidate_gallery.js?v=20260929-1"></script>
+    <script src="/static/solo.js?v=20260929-3"></script>
+  </body>
+</html>

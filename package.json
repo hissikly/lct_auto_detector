@@ -1,0 +1,8 @@
+{
+  "name": "lct-auto-detector-vercel",
+  "private": true,
+  "description": "Vercel UI prototype. The DINOv2 encoder and Docker stack stay in the local project.",
+  "engines": {
+    "node": "22.x"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "framework": null,
+  "rewrites": [
+    { "source": "/solo", "destination": "/solo.html" },
+    { "source": "/many", "destination": "/many.html" },
+    { "source": "/gallery", "destination": "/gallery.html" },
+    { "source": "/judge-export", "destination": "/judge_export.html" },
+    { "source": "/replenishment", "destination": "/replenishment.html" }
+  ]
+}
