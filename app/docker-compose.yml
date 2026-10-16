@@ -1,0 +1,59 @@
+services:
+  ml:
+    restart: unless-stopped
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.ml
+    environment:
+      LCT_ML_ARTIFACT_DIR: /model
+      LCT_ML_GALLERY_PATH: ""
+      LCT_ML_GALLERY_DB_PATH: /gallery_state/gallery.sqlite3
+      LCT_ML_DEVICE: ${LCT_ML_DEVICE:-auto}
+      OMP_NUM_THREADS: ${LCT_TORCH_THREADS:-4}
+      MKL_NUM_THREADS: ${LCT_TORCH_THREADS:-4}
+      LCT_ML_USER_GALLERY_DIR: /gallery_state
+      LCT_JUDGE_EXPORT_ENABLED: ${LCT_JUDGE_EXPORT_ENABLED:-0}
+      LCT_JUDGE_EXPORT_DIR: /judge_exports
+      LCT_JUDGE_EXPORT_BATCH_SIZE: ${LCT_JUDGE_EXPORT_BATCH_SIZE:-4}
+    volumes:
+      - ${LCT_ML_ARTIFACT_DIR:-./model_artifacts/strong_l336_aqe}:/model:ro
+      - gallery_state:/gallery_state
+      - ${LCT_JUDGE_EXPORT_VOLUME:-judge_exports}:/judge_exports
+    ports:
+      - "127.0.0.1:${LCT_ML_PORT:-8001}:8001"
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8001/ready', timeout=20)"]
+      interval: 15s
+      timeout: 30s
+      retries: 6
+      start_period: 60s
+
+  backend:
+    restart: unless-stopped
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    environment:
+      DATABASE_URL: sqlite:////state/local.db
+      LCT_ML_SERVICE_URL: http://ml:8001
+      LCT_UPLOAD_DIR: /state/uploads
+      LCT_GALLERY_STATE_DIR: /gallery_state
+      LCT_JUDGE_EXPORT_ENABLED: ${LCT_JUDGE_EXPORT_ENABLED:-0}
+    volumes:
+      - backend_state:/state
+      - gallery_state:/gallery_state
+    ports:
+      - "127.0.0.1:${LCT_BACKEND_PORT:-8000}:8000"
+    depends_on:
+      ml:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/ready', timeout=5)"]
+      interval: 15s
+      timeout: 10s
+      retries: 4
+
+volumes:
+  backend_state:
+  gallery_state:
+  judge_exports:

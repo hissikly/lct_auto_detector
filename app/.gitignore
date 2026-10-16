@@ -1,0 +1,55 @@
+# Python bytecode
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+# Python packaging
+*.egg-info/
+.eggs/
+build/
+dist/
+
+# Environment and secrets
+.env
+.env.*
+*.pem
+*.key
+
+# Editor/IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Local databases / generated data
+*.sqlite3
+*.db
+gallery_state/
+uploads/
+model_artifacts/joint_l336
+
+# Project-specific runtime artifacts
+frontend/uploads/
+backend/.pytest_cache/
+.pytest_cache/
+backend/ml_artifacts/
+judge_exports/
+.deck_build/
+# Local-only jury drafts. The diagnostic PNG embeds organizer pixels.
+docs/LCT_Vehicle_ReID_jury_20260927*.pptx
+docs/patch_similarity_example_20260927.png
+
+# The minimal licensed DINOv2 inference import closure is included in this snapshot.
+
+# Logs
+*.log

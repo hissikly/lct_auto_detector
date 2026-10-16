@@ -1,0 +1,5 @@
+# Python 3.12 test/research environment, in addition to the application stack.
+-r backend/requirements.txt
+-r backend/requirements-ml.txt
+-r repro/requirements.txt
+pytest==7.4.3

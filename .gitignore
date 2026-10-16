@@ -1,3 +1,55 @@
-.vercel
+# Credentials and personal sessions
+.env
+.env.*
+!.env.example
+cookies.json
+*cookies*.json
+.secrets/
+*.pem
+*.key
+
+# Local environments and generated state
+.venv*/
+venv/
+node_modules/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.ipynb_checkpoints/
+.codex/
+.vercel/
 .DS_Store
-node_modules
+*.log
+*.db
+*.sqlite*
+*.egg-info/
+build/
+dist/
+
+# Data and downloadable artifacts
+data/
+weights/
+outputs/
+artifacts/
+gallery_state/
+uploads/
+judge_exports/
+*.pt
+*.pth
+*.safetensors
+*.onnx
+*.npz
+*.npy
+*.zip
+*.tar
+*.tar.gz
+
+# Private working notes
+AGENTS.md
+LLM_WIKI/
+WORK_STATUS.md
+A100_STATUS.md
+LIVE_STATUS.md
+.deck_build/
